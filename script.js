@@ -1,82 +1,51 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f0f0f0;
-}
-
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.profil-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 20px;
-}
-
-.bio {
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.link-container {
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.link-item {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.link-item:hover {
-  background-color: #e9e9e9;
-}
-
-.link-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
-
-.link-nama {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.link-nama:hover {
-  color: #555;
-}
-
-.tambah-link-btn {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.tambah-link-btn:hover {
-  background-color: #555;
-}
+let links = [
+    { nama: "Facebook", link: "(link unavailable)", background: "#3b5998" },
+    { nama: "Instagram", link: "(link unavailable)", background: "#e1306c" },
+    { nama: "Twitter", link: "(link unavailable)", background: "#1da1f2" },
+  ];
+  
+  function tambahLink() {
+    const namaLink = prompt("Masukkan nama link:");
+    const link = prompt("Masukkan link:");
+    const background = prompt("Masukkan warna background (hex):");
+    
+    if (namaLink && link && background) {
+      links.push({ nama: namaLink, link, background });
+      renderLink();
+    }
+  }
+  
+  function editLink(index) {
+    const namaBaru = prompt("Masukkan nama link baru:");
+    const linkBaru = prompt("Masukkan link baru:");
+    const backgroundBaru = prompt("Masukkan warna background baru (hex):");
+    
+    if (namaBaru && linkBaru && backgroundBaru) {
+      links[index].nama = namaBaru;
+      links[index].link = linkBaru;
+      links[index].background = backgroundBaru;
+      renderLink();
+    }
+  }
+  
+  function renderLink() {
+    const linkContainer = document.getElementById("link-sosial-media");
+    linkContainer.innerHTML = "";
+  
+    links.forEach((link, index) => {
+      const linkBaru = document.createElement("li");
+      linkBaru.innerHTML = `
+        <div class="link-item" style="background-color: ${link.background}">
+          <img src="link.png" alt="Link" class="link-icon">
+          <a href="${link.link}" target="_blank" class="link-nama">${link.nama}</a>
+          <button class="edit-link" onclick="editLink(${index})">Edit</button>
+          <button class="hapus-link" onclick="hapusLink(${index})">Hapus</button>
+        </div>
+      `;
+      linkContainer.appendChild(linkBaru);
+    });
+  }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+    renderLink();
+    });
